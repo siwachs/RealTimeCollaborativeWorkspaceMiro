@@ -1,4 +1,6 @@
 import Sidebar from "./_components/sidebar";
+import OrgSidebar from "./_components/orgSidebar";
+import Navbar from "./_components/sidebar/navbar";
 
 export default function RootLayout({
   children,
@@ -8,10 +10,11 @@ export default function RootLayout({
   return (
     <>
       <Sidebar />
-      <main className="h-full pl-[60px]">
-        <div className="flex h-full gap-x-3">
+      <main className="pl-[60px]">
+        <div className="flex min-h-screen gap-x-3">
+          <OrgSidebar />
           <div className="h-full flex-1">
-            {/* Add Navbar */}
+            <Navbar />
             {children}
           </div>
         </div>
