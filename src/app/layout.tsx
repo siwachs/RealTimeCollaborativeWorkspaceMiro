@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { ClerkProvider } from "@clerk/nextjs";
+import { ConvexClientPtovider } from "@/providers/converClientProvider";
 
 export const metadata: Metadata = {
   title: "Miro - Realtime Collaborative Workspace",
@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClerkProvider>{children}</ClerkProvider>
+        <ConvexClientPtovider>{children}</ConvexClientPtovider>
       </body>
     </html>
   );

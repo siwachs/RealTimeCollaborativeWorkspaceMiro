@@ -11,7 +11,7 @@ export default function RootLayout({
     <>
       <Sidebar />
       <main className="pl-[60px]">
-        <div className="flex min-h-screen gap-x-3">
+        <div className="flex h-full gap-x-3">
           <OrgSidebar />
           <div className="h-full flex-1">
             <Navbar />
