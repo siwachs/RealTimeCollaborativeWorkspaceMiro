@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { ConvexClientPtovider } from "@/providers/converClientProvider";
+import { ConvexClientProvider } from "@/providers/convexClientProvider";
 
 export const metadata: Metadata = {
   title: "Miro - Realtime Collaborative Workspace",
@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ConvexClientPtovider>{children}</ConvexClientPtovider>
+        <ConvexClientProvider>{children}</ConvexClientProvider>
       </body>
     </html>
   );
