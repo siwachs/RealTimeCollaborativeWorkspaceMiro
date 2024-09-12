@@ -1,9 +1,24 @@
-import EmptyOrg from "./_components/emptyOrg";
+"use client";
 
-function DashboardPage() {
+import { useOrganization } from "@clerk/nextjs";
+
+import EmptyOrg from "./_components/emptyOrg";
+import BoardList from "./_components/boardList";
+
+type PageProps = {
+  searchParams: { keyword?: string; favorites?: string };
+};
+
+function DashboardPage({ searchParams }: Readonly<PageProps>) {
+  const { organization } = useOrganization();
+
   return (
     <div className="h-[calc(100%-80px)] flex-1 p-6">
-      <EmptyOrg />
+      {!organization ? (
+        <EmptyOrg />
+      ) : (
+        <BoardList organization={organization.id} searchParams={searchParams} />
+      )}
     </div>
   );
 }
