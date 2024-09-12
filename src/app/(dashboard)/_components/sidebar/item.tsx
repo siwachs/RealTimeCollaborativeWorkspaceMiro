@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { useOrganization, useOrganizationList } from "@clerk/nextjs";
+
 import { cn } from "@/lib/utils";
+import Hint from "@/components/hint";
 
 const Item: React.FC<{ id: string; name: string; imageURL: string }> = ({
   id,
@@ -20,16 +22,18 @@ const Item: React.FC<{ id: string; name: string; imageURL: string }> = ({
 
   return (
     <div className="relative aspect-square">
-      <Image
-        fill
-        src={imageURL}
-        onClick={onClick}
-        alt={name}
-        className={cn(
-          "cursor-pointer rounded-md opacity-75 transition hover:opacity-100",
-          isActive && "opacity-100",
-        )}
-      />
+      <Hint label={name} side="right" align="start" sideOffset={18}>
+        <Image
+          fill
+          src={imageURL}
+          onClick={onClick}
+          alt={name}
+          className={cn(
+            "cursor-pointer rounded-md opacity-75 transition hover:opacity-100",
+            isActive && "opacity-100",
+          )}
+        />
+      </Hint>
     </div>
   );
 };
