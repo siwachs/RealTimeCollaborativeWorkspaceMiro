@@ -5,6 +5,7 @@ import { useAuth } from "@clerk/nextjs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatDistanceToNow } from "date-fns";
 import Overlay from "./overlay";
+import Actions from "@/components/actions";
 import Footer from "./footer";
 
 const BoardCard: React.FC<{
@@ -36,6 +37,10 @@ const BoardCard: React.FC<{
         <div className="relative flex-1 bg-amber-50">
           <Image src={imageURL} alt="Doodle" fill className="object-contain" />
           <Overlay />
+
+          <Actions id={id} title={title} side="right">
+            <button>Button Render</button>
+          </Actions>
         </div>
 
         <Footer
