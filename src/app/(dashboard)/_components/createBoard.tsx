@@ -1,5 +1,3 @@
-"use client";
-
 import { useOrganization } from "@clerk/nextjs";
 import { useApiMutation } from "@/hooks/useApiMutation";
 

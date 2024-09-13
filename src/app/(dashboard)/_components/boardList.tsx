@@ -4,6 +4,7 @@ import { useQuery } from "convex/react";
 
 import EmptyState from "./emptyState";
 import CreateBoard from "./createBoard";
+import NewBoardButton from "./newBoardButton";
 import BoardCard from "./boardCard";
 
 import { api } from "@/../convex/_generated/api";
@@ -57,6 +58,7 @@ const BoardList: React.FC<{
       </h2>
 
       <div className="mt-8 grid grid-cols-1 gap-5 pb-10 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+        <NewBoardButton orgId={orgId} />
         {data?.map((board) => (
           <BoardCard
             key={board._id}
