@@ -1,11 +1,20 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
+import { useQuery } from "convex/react";
+
 import EmptyState from "./emptyState";
+import CreateBoard from "./createBoard";
+import BoardCard from "./boardCard";
+
+import { api } from "@/../convex/_generated/api";
 
 const BoardList: React.FC<{
   orgId: string;
   searchParams: { keyword?: string; favorites?: string };
 }> = ({ orgId, searchParams }) => {
-  const data = []; //API call to board fetch.
+  const data = useQuery(api.boards.get, { orgId });
+
+  if (data === undefined) return <div>Loading...</div>;
 
   if (!data?.length && searchParams.keyword)
     return (
@@ -37,13 +46,32 @@ const BoardList: React.FC<{
         title="Create your first board!"
         subTitle="Start by creating a board for your organization"
       >
-        <div className="mt-6">
-          <Button size="lg">Create Board</Button>
-        </div>
+        <CreateBoard />
       </EmptyState>
     );
 
-  return <div>BoardList:React.FC</div>;
+  return (
+    <div>
+      <h2 className="text-3xl">
+        {searchParams.favorites ? "Favorites Board" : "Team Boards"}
+      </h2>
+
+      <div className="mt-8 grid grid-cols-1 gap-5 pb-10 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+        {data?.map((board) => (
+          <BoardCard
+            key={board._id}
+            id={board._id}
+            title={board.title}
+            imageURL={board.imageURL}
+            authorId={board.authorId}
+            authorName={board.authorName}
+            createdAt={board._creationTime}
+            orgId={board.orgId}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default BoardList;
