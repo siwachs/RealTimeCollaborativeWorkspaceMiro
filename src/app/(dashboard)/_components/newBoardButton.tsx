@@ -25,7 +25,8 @@ const NewBoardButton: React.FC<{ orgId: string; disabled?: boolean }> = ({
       disabled={disabled || pending}
       className={cn(
         "col-span-1 flex aspect-[100/127] flex-col items-center justify-center rounded-lg bg-blue-600 py-6 hover:bg-blue-800",
-        (disabled || pending) && "cursor-not-allowed opacity-75",
+        (disabled || pending) &&
+          "cursor-not-allowed opacity-75 hover:bg-blue-600",
       )}
       onClick={onClick}
     >

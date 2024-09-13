@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAuth } from "@clerk/nextjs";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { formatDistanceToNow } from "date-fns";
 import Overlay from "./overlay";
 import Footer from "./footer";
@@ -49,5 +50,11 @@ const BoardCard: React.FC<{
     </Link>
   );
 };
+
+export const BoardCardSkeleton: React.FC = () => (
+  <div className="aspect-[100/127] overflow-hidden rounded-lg">
+    <Skeleton className="h-full w-full" />
+  </div>
+);
 
 export default BoardCard;

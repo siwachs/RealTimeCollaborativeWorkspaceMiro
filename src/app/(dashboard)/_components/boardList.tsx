@@ -5,7 +5,7 @@ import { useQuery } from "convex/react";
 import EmptyState from "./emptyState";
 import CreateBoard from "./createBoard";
 import NewBoardButton from "./newBoardButton";
-import BoardCard from "./boardCard";
+import BoardCard, { BoardCardSkeleton } from "./boardCard";
 
 import { api } from "@/../convex/_generated/api";
 
@@ -15,7 +15,21 @@ const BoardList: React.FC<{
 }> = ({ orgId, searchParams }) => {
   const data = useQuery(api.boards.get, { orgId });
 
-  if (data === undefined) return <div>Loading...</div>;
+  if (data === undefined)
+    return (
+      <div>
+        <h2 className="text-3xl">
+          {searchParams.favorites ? "Favorites Board" : "Team Boards"}
+        </h2>
+
+        <div className="mt-8 grid grid-cols-1 gap-5 pb-10 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+          <NewBoardButton orgId={orgId} disabled />
+          {[...new Array(4)].map((_, index) => (
+            <BoardCardSkeleton key={index} />
+          ))}
+        </div>
+      </div>
+    );
 
   if (!data?.length && searchParams.keyword)
     return (
