@@ -8,6 +8,8 @@ import Overlay from "./overlay";
 import Actions from "@/components/actions";
 import Footer from "./footer";
 
+import { MoreHorizontal } from "lucide-react";
+
 const BoardCard: React.FC<{
   id: string;
   title: string;
@@ -39,7 +41,9 @@ const BoardCard: React.FC<{
           <Overlay />
 
           <Actions id={id} title={title} side="right">
-            <button>Button Render</button>
+            <button className="absolute right-1 top-1 px-3 py-2 opacity-0 outline-none transition-opacity group-hover:opacity-100">
+              <MoreHorizontal className="text-white opacity-75 transition-opacity hover:opacity-100" />
+            </button>
           </Actions>
         </div>
 
