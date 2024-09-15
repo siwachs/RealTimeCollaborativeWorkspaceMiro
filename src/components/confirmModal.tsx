@@ -26,8 +26,9 @@ const ConfirmModal: React.FC<{
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{header}</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
+
+        <AlertDialogDescription>{description}</AlertDialogDescription>
 
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
