@@ -1,3 +1,5 @@
+import { MouseEvent } from "react";
+
 import { cn } from "@/lib/utils";
 
 import { Star } from "lucide-react";
@@ -17,6 +19,13 @@ const Footer: React.FC<{
   onClick,
   disabled,
 }) => {
+  const onCLickFavorite = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    onClick();
+  };
+
   return (
     <div className="relative bg-white p-3">
       <p className="max-w-[calc(100%-20px)] truncate text-[13px]">{title}</p>
@@ -30,7 +39,7 @@ const Footer: React.FC<{
           "absolute right-3 top-3 text-muted-foreground opacity-0 transition hover:text-blue-600 group-hover:opacity-100",
           disabled && "cursor-not-allowed opacity-75",
         )}
-        onClick={onClick}
+        onClick={onCLickFavorite}
       >
         <Star
           className={cn("size-4", isFavorite && "fill-blue-600 text-blue-600")}

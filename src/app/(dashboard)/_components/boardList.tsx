@@ -1,5 +1,3 @@
-"use client";
-
 import { useQuery } from "convex/react";
 
 import EmptyState from "./emptyState";
@@ -83,6 +81,7 @@ const BoardList: React.FC<{
             authorName={board.authorName}
             createdAt={board._creationTime}
             orgId={board.orgId}
+            isFavorite={board.isFavorite}
           />
         ))}
       </div>
