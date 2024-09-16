@@ -11,7 +11,10 @@ const BoardList: React.FC<{
   orgId: string;
   searchParams: { keyword?: string; favorites?: string };
 }> = ({ orgId, searchParams }) => {
-  const data = useQuery(api.boards.get, { orgId });
+  const data = useQuery(api.boards.get, {
+    orgId,
+    keyword: searchParams.keyword,
+  });
 
   if (data === undefined)
     return (
