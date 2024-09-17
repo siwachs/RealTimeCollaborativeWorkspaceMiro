@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { useApiMutation } from "@/hooks/useApiMutation";
 
 import { toast } from "sonner";
@@ -10,11 +11,13 @@ const NewBoardButton: React.FC<{ orgId: string; disabled?: boolean }> = ({
   orgId,
   disabled = false,
 }) => {
+  const router = useRouter();
   const { mutate, pending } = useApiMutation(api.board.create);
 
   const onClick = () => {
     mutate({ title: "Untitled", orgId })
       .then((id) => {
+        router.push(`/board/${id}`);
         toast.success("Board Created.");
       })
       .catch((error) => toast.error("Failed to create board"));
