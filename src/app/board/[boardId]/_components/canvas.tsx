@@ -4,7 +4,7 @@ import Info from "./info";
 import Participants from "./participants";
 import Toolbar from "./toolbar";
 
-const Canvas = () => {
+const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
   return (
     <main className="relative h-full w-full touch-none bg-neutral-100">
       <Info />
