@@ -10,16 +10,15 @@ import {
   ClientSideSuspense,
 } from "@liveblocks/react/suspense";
 
-const Room: React.FC<{ roomId: string; children: ReactNode }> = ({
-  roomId,
-  children,
-}) => {
+const Room: React.FC<{
+  roomId: string;
+  children: ReactNode;
+  fallback: NonNullable<ReactNode> | null;
+}> = ({ roomId, children, fallback }) => {
   return (
     <LiveblocksProvider publicApiKey={liveBlocksPublicKey}>
       <RoomProvider id={roomId}>
-        <ClientSideSuspense fallback={<div>Loading…</div>}>
-          {children}
-        </ClientSideSuspense>
+        <ClientSideSuspense fallback={fallback}>{children}</ClientSideSuspense>
       </RoomProvider>
     </LiveblocksProvider>
   );
