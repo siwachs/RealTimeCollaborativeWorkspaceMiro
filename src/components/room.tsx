@@ -1,8 +1,5 @@
 "use client";
 
-const liveBlocksPublicKey = process.env
-  .NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY as string;
-
 import { ReactNode } from "react";
 import {
   LiveblocksProvider,
@@ -16,7 +13,7 @@ const Room: React.FC<{
   fallback: NonNullable<ReactNode> | null;
 }> = ({ roomId, children, fallback }) => {
   return (
-    <LiveblocksProvider publicApiKey={liveBlocksPublicKey}>
+    <LiveblocksProvider authEndpoint="/api/liveblocks-auth">
       <RoomProvider id={roomId}>
         <ClientSideSuspense fallback={fallback}>{children}</ClientSideSuspense>
       </RoomProvider>
