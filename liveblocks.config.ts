@@ -17,7 +17,7 @@ declare global {
     // Custom user info set when authenticating with a secret key
     UserMeta: {
       id?: string;
-      userInfo?: {
+      info?: {
         name?: string;
         imageURL?: string;
       };
