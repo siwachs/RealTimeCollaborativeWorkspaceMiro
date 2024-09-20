@@ -7,4 +7,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function connectionIdToColor(connectionId: number) {}
+export function connectionIdToColor(connectionId: number) {
+  return COLORS[connectionId % COLORS.length];
+}

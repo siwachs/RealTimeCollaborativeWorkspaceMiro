@@ -1,5 +1,6 @@
 import { useOthers, useSelf } from "@liveblocks/react/suspense";
 
+import { connectionIdToColor } from "@/lib/utils";
 import UserAvatar from "./userAvatar";
 
 const MAX_SHOWN_USERS = 2;
@@ -14,6 +15,7 @@ const Participants = () => {
       <div className="flex gap-x-2">
         {users.slice(0, MAX_SHOWN_USERS).map(({ connectionId, info }) => (
           <UserAvatar
+            borderColor={connectionIdToColor(connectionId)}
             key={connectionId}
             source={info?.imageURL}
             name={info?.name}
@@ -23,6 +25,7 @@ const Participants = () => {
 
         {currentUser && (
           <UserAvatar
+            borderColor={connectionIdToColor(currentUser.connectionId)}
             source={currentUser.info?.imageURL}
             name={`${currentUser.info?.name} (You)`}
             fallback={`${currentUser.info?.name?.[0] ?? "U"} (You)`}
