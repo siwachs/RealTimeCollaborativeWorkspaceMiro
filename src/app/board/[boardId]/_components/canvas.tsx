@@ -1,7 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { useHistory, useCanUndo, useCanRedo } from "@liveblocks/react/suspense";
+import { useState, PointerEvent } from "react";
+import {
+  useHistory,
+  useCanUndo,
+  useCanRedo,
+  useMutation,
+} from "@liveblocks/react/suspense";
 
 import { CanvasMode, CanvasState } from "@/types/canvas";
 import Info from "./info";
@@ -17,6 +22,13 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
   const history = useHistory();
   const canUndo = useCanUndo();
   const canRedo = useCanRedo();
+
+  const onPointerMove = useMutation(({ setMyPresence }, e: PointerEvent) => {
+    e.preventDefault();
+    const current = { x: 0, y: 0 };
+
+    setMyPresence({ cursor: current });
+  }, []);
 
   return (
     <main className="relative h-full w-full touch-none bg-neutral-100">

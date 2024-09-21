@@ -16,7 +16,12 @@ const Cursor: React.FC<{ connectionId: number }> = memo(({ connectionId }) => {
   const { x, y } = cursorPresence.cursor;
 
   return (
-    <foreignObject style={{ transform: `translateX(${x}px)` }}>
+    <foreignObject
+      style={{ transform: `translate(${x}px, ${y}px, 0)` }}
+      height={50}
+      width={50}
+      className="relative drop-shadow-md"
+    >
       <MousePointer2
         className="size-5"
         style={{
