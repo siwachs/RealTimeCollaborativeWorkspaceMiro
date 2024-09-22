@@ -1,3 +1,6 @@
+// Live Stram Object Notation
+import { LsonObject } from "@liveblocks/client";
+
 export type Color = { r: number; g: number; b: number };
 
 export type Camera = { x: number; y: number };
@@ -17,7 +20,7 @@ export interface XYWH {
   height: number;
 }
 
-interface Layer extends XYWH {
+interface Layer extends XYWH, LsonObject {
   fill: Color;
   value?: string;
 }
@@ -82,3 +85,10 @@ export type CanvasState =
   | { mode: CanvasMode.Pencil }
   | { mode: CanvasMode.Pressing; origin: Point }
   | { mode: CanvasMode.Resizing; initialBounds: XYWH; corner: Side };
+
+export type CanvasLayer =
+  | RectangleLayer
+  | EllipseLayer
+  | PathLayer
+  | TextLayer
+  | NoteLayer;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, PointerEvent, WheelEvent, useCallback } from "react";
+import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
 import {
   useHistory,
   useCanUndo,
@@ -9,11 +10,19 @@ import {
 } from "@liveblocks/react/suspense";
 
 import { pointerEventToCanvasPoint } from "@/lib/utils";
-import { Camera, CanvasMode, CanvasState } from "@/types/canvas";
+import {
+  Camera,
+  CanvasMode,
+  CanvasState,
+  CanvasLayer,
+  Color,
+} from "@/types/canvas";
 import Info from "./info";
 import Participants from "./participants";
 import Toolbar from "./toolbar";
 import CursorsPresence from "./cursorsPresence";
+
+const MAX_LAYERS = 100;
 
 const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
   const [canvasState, setCanvasState] = useState<CanvasState>({
@@ -59,7 +68,9 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
         onPointerMove={onPointerMove}
         onPointerLeave={onPointerLeave}
       >
-        <g>
+        <g
+          style={{ transform: `translate3d(${camera.x}px, ${camera.y}px, 0)` }}
+        >
           <CursorsPresence />
         </g>
       </svg>
