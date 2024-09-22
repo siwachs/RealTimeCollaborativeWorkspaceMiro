@@ -17,9 +17,9 @@ const Cursor: React.FC<{ connectionId: number }> = memo(({ connectionId }) => {
 
   return (
     <foreignObject
-      style={{ transform: `translate(${x}px, ${y}px, 0)` }}
+      style={{ transform: `translate3d(${x}px, ${y}px, 0)` }}
       height={50}
-      width={50}
+      width={name.length * 10 + 24}
       className="relative drop-shadow-md"
     >
       <MousePointer2
@@ -29,6 +29,13 @@ const Cursor: React.FC<{ connectionId: number }> = memo(({ connectionId }) => {
           color: connectionIdToColor(connectionId),
         }}
       />
+
+      <div
+        style={{ backgroundColor: connectionIdToColor(connectionId) }}
+        className="absolute left-5 rounded-md px-1.5 py-0.5 text-xs font-semibold text-white"
+      >
+        {name}
+      </div>
     </foreignObject>
   );
 });

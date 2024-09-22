@@ -13,7 +13,7 @@ const Room: React.FC<{
   fallback: NonNullable<ReactNode> | null;
 }> = ({ roomId, children, fallback }) => {
   return (
-    <LiveblocksProvider authEndpoint="/api/liveblocks-auth">
+    <LiveblocksProvider throttle={16} authEndpoint="/api/liveblocks-auth">
       <RoomProvider id={roomId} initialPresence={{ cursor: null }}>
         <ClientSideSuspense fallback={fallback}>{children}</ClientSideSuspense>
       </RoomProvider>
