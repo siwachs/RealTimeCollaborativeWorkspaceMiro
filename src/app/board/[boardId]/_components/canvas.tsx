@@ -32,6 +32,7 @@ import Participants from "./participants";
 import Toolbar from "./toolbar";
 import CursorsPresence from "./cursorsPresence";
 import LayerPreview from "./layerPreview";
+import SelectionBox from "./selectionBox";
 
 const MAX_LAYERS = 100;
 
@@ -129,11 +130,9 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
       const point = pointerEventToCanvasPoint(e, camera);
 
       if (!self.presence.selection.includes(layerId)) {
-        console.log("setting");
         setMyPresence({ selection: [layerId] }, { addToHistory: true });
       }
 
-      console.log("setting Out");
       setCanvasState({ mode: CanvasMode.Translating, current: point });
     },
     [setCanvasState, camera.x, camera.y, history, canvasState.mode],
@@ -186,6 +185,8 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
               selectionColor={layerIdsToColorSelection[layerId]}
             />
           ))}
+
+          <SelectionBox onResizeHandlePointerDown={() => {}} />
 
           <CursorsPresence />
         </g>

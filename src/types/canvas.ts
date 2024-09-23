@@ -20,7 +20,7 @@ export interface XYWH {
   height: number;
 }
 
-interface Layer extends XYWH, LsonObject {
+export interface Layer extends XYWH, LsonObject {
   fill: Color;
   value?: string;
 }
