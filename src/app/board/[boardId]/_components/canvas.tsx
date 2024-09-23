@@ -1,13 +1,20 @@
 "use client";
 
-import { useState, PointerEvent, WheelEvent, useCallback } from "react";
-import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
+import {
+  useState,
+  PointerEvent,
+  WheelEvent,
+  useCallback,
+  useMemo,
+} from "react";
+import { LiveObject } from "@liveblocks/client";
 import {
   useStorage,
   useHistory,
   useCanUndo,
   useCanRedo,
   useMutation,
+  useOthersMapped,
 } from "@liveblocks/react/suspense";
 import { nanoid } from "nanoid";
 
@@ -15,12 +22,11 @@ import {
   Camera,
   CanvasMode,
   CanvasState,
-  CanvasLayer,
   LayerType,
   Color,
   Point,
 } from "@/types/canvas";
-import { pointerEventToCanvasPoint } from "@/lib/utils";
+import { connectionIdToColor, pointerEventToCanvasPoint } from "@/lib/utils";
 import Info from "./info";
 import Participants from "./participants";
 import Toolbar from "./toolbar";
@@ -109,6 +115,46 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
     [camera.x, camera.y, canvasState.mode, history, insertLayer],
   );
 
+  const onLayerPointerDown = useMutation(
+    ({ self, setMyPresence }, e: PointerEvent, layerId: string) => {
+      if (
+        canvasState.mode === CanvasMode.Pencil ||
+        canvasState.mode === CanvasMode.Inserting
+      )
+        return;
+
+      history.pause();
+      e.stopPropagation();
+
+      const point = pointerEventToCanvasPoint(e, camera);
+
+      if (!self.presence.selection.includes(layerId)) {
+        console.log("setting");
+        setMyPresence({ selection: [layerId] }, { addToHistory: true });
+      }
+
+      console.log("setting Out");
+      setCanvasState({ mode: CanvasMode.Translating, current: point });
+    },
+    [setCanvasState, camera.x, camera.y, history, canvasState.mode],
+  );
+
+  const selections = useOthersMapped((other) => other.presence.selection);
+
+  const layerIdsToColorSelection = useMemo(() => {
+    const layerIdsToColorSelection: Record<string, string> = {};
+
+    for (const user of selections) {
+      const [connectionId, selection] = user;
+
+      for (const layedId of selection) {
+        layerIdsToColorSelection[layedId] = connectionIdToColor(connectionId);
+      }
+    }
+
+    return layerIdsToColorSelection;
+  }, [selections]);
+
   return (
     <main className="relative h-full w-full touch-none bg-neutral-100">
       <Info boardId={boardId} />
@@ -136,8 +182,8 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
             <LayerPreview
               key={layerId}
               id={layerId}
-              onLayerPointerDown={() => {}}
-              selectionColor="#000"
+              onLayerPointerDown={onLayerPointerDown}
+              selectionColor={layerIdsToColorSelection[layerId]}
             />
           ))}
 

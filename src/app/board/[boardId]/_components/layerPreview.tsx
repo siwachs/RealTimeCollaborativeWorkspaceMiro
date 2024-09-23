@@ -8,7 +8,7 @@ const LayerPreview: React.FC<{
   id: string;
   onLayerPointerDown: (e: PointerEvent, layerId: string) => void;
   selectionColor?: string;
-}> = memo(({ id, onLayerPointerDown, selectionColor = "#000" }) => {
+}> = memo(({ id, onLayerPointerDown, selectionColor }) => {
   const layer = useStorage((root) => root.layers.get(id));
   if (!layer) return null;
 
@@ -18,7 +18,7 @@ const LayerPreview: React.FC<{
         <Rectangle
           id={id}
           layer={layer as RectangleLayer}
-          onPointerDown={() => {}}
+          onPointerDown={onLayerPointerDown}
           selectionColor={selectionColor}
         />
       );

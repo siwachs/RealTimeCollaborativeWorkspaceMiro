@@ -1,12 +1,13 @@
 import { PointerEvent } from "react";
 
+import { colorToCSS } from "@/lib/utils";
 import { RectangleLayer } from "@/types/canvas";
 
 const Rectangle: React.FC<{
   id: string;
   layer: RectangleLayer;
   onPointerDown: (e: PointerEvent, id: string) => void;
-  selectionColor: string;
+  selectionColor?: string;
 }> = ({ id, layer, onPointerDown, selectionColor }) => {
   const { x, y, width, height, fill } = layer;
 
@@ -22,8 +23,8 @@ const Rectangle: React.FC<{
       width={width}
       height={height}
       strokeWidth={1}
-      fill="#000"
-      stroke="transparent"
+      fill={fill ? colorToCSS(fill) : "#000"}
+      stroke={selectionColor ?? "transparent"}
     />
   );
 };
