@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, PointerEvent } from "react";
 import { useSelf, useStorage } from "@liveblocks/react/suspense";
 import useSelectionBound from "@/hooks/useSelectionBounds";
 
@@ -19,7 +19,6 @@ const SelectionBox: React.FC<{
   );
 
   const bounds = useSelectionBound();
-  console.log(bounds);
   if (!bounds) return null;
 
   return (
@@ -33,7 +32,153 @@ const SelectionBox: React.FC<{
         height={bounds.height}
       />
 
-      <></>
+      {isShowHandles && (
+        <>
+          <rect
+            className="fill-white stroke-blue-500 stroke-1"
+            x={0}
+            y={0}
+            style={{
+              cursor: "nwse-resize",
+              width: `${HANDLE_WIDTH}px`,
+              height: `${HANDLE_WIDTH}px`,
+              transform: `translate3d(
+              ${bounds.x - HANDLE_WIDTH / 2}px, 
+              ${bounds.y - HANDLE_WIDTH / 2}px, 0)`,
+            }}
+            onPointerDown={(e: PointerEvent) => {
+              e.stopPropagation();
+              // TODO: Add Resize
+            }}
+          />
+
+          <rect
+            className="fill-white stroke-blue-500 stroke-1"
+            x={0}
+            y={0}
+            style={{
+              cursor: "ns-resize",
+              width: `${HANDLE_WIDTH}px`,
+              height: `${HANDLE_WIDTH}px`,
+              transform: `translate3d(
+              ${bounds.x + bounds.width / 2 - HANDLE_WIDTH / 2}px, 
+              ${bounds.y - HANDLE_WIDTH / 2}px, 0)`,
+            }}
+            onPointerDown={(e: PointerEvent) => {
+              e.stopPropagation();
+              // TODO: Add Resize
+            }}
+          />
+
+          <rect
+            className="fill-white stroke-blue-500 stroke-1"
+            x={0}
+            y={0}
+            style={{
+              cursor: "nesw-resize",
+              width: `${HANDLE_WIDTH}px`,
+              height: `${HANDLE_WIDTH}px`,
+              transform: `translate3d(
+              ${bounds.x - HANDLE_WIDTH / 2 + bounds.width}px, 
+              ${bounds.y - HANDLE_WIDTH / 2}px, 0)`,
+            }}
+            onPointerDown={(e: PointerEvent) => {
+              e.stopPropagation();
+              // TODO: Add Resize
+            }}
+          />
+
+          <rect
+            className="fill-white stroke-blue-500 stroke-1"
+            x={0}
+            y={0}
+            style={{
+              cursor: "ew-resize",
+              width: `${HANDLE_WIDTH}px`,
+              height: `${HANDLE_WIDTH}px`,
+              transform: `translate3d(
+              ${bounds.x - HANDLE_WIDTH / 2 + bounds.width}px, 
+              ${bounds.y + bounds.height / 2 - HANDLE_WIDTH}px, 0)`,
+            }}
+            onPointerDown={(e: PointerEvent) => {
+              e.stopPropagation();
+              // TODO: Add Resize
+            }}
+          />
+
+          <rect
+            className="fill-white stroke-blue-500 stroke-1"
+            x={0}
+            y={0}
+            style={{
+              cursor: "nwse-resize",
+              width: `${HANDLE_WIDTH}px`,
+              height: `${HANDLE_WIDTH}px`,
+              transform: `translate3d(
+              ${bounds.x - HANDLE_WIDTH / 2 + bounds.width}px, 
+              ${bounds.y - HANDLE_WIDTH / 2 + bounds.height}px, 0)`,
+            }}
+            onPointerDown={(e: PointerEvent) => {
+              e.stopPropagation();
+              // TODO: Add Resize
+            }}
+          />
+
+          <rect
+            className="fill-white stroke-blue-500 stroke-1"
+            x={0}
+            y={0}
+            style={{
+              cursor: "ns-resize",
+              width: `${HANDLE_WIDTH}px`,
+              height: `${HANDLE_WIDTH}px`,
+              transform: `translate3d(
+              ${bounds.x + bounds.width / 2 - HANDLE_WIDTH / 2}px, 
+              ${bounds.y - HANDLE_WIDTH / 2 + bounds.height}px, 0)`,
+            }}
+            onPointerDown={(e: PointerEvent) => {
+              e.stopPropagation();
+              // TODO: Add Resize
+            }}
+          />
+
+          <rect
+            className="fill-white stroke-blue-500 stroke-1"
+            x={0}
+            y={0}
+            style={{
+              cursor: "nesw-resize",
+              width: `${HANDLE_WIDTH}px`,
+              height: `${HANDLE_WIDTH}px`,
+              transform: `translate3d(
+              ${bounds.x - HANDLE_WIDTH / 2}px, 
+              ${bounds.y - HANDLE_WIDTH / 2 + bounds.height}px, 0)`,
+            }}
+            onPointerDown={(e: PointerEvent) => {
+              e.stopPropagation();
+              // TODO: Add Resize
+            }}
+          />
+
+          <rect
+            className="fill-white stroke-blue-500 stroke-1"
+            x={0}
+            y={0}
+            style={{
+              cursor: "ew-resize",
+              width: `${HANDLE_WIDTH}px`,
+              height: `${HANDLE_WIDTH}px`,
+              transform: `translate3d(
+              ${bounds.x - HANDLE_WIDTH / 2}px, 
+              ${bounds.y - HANDLE_WIDTH / 2 + bounds.height / 2}px, 0)`,
+            }}
+            onPointerDown={(e: PointerEvent) => {
+              e.stopPropagation();
+              // TODO: Add Resize
+            }}
+          />
+        </>
+      )}
     </>
   );
 });
