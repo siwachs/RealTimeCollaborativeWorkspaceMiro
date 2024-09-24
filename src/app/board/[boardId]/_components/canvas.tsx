@@ -27,7 +27,6 @@ import {
   Point,
   Side,
   XYWH,
-  CanvasLayer,
 } from "@/types/canvas";
 import {
   connectionIdToColor,
@@ -40,6 +39,7 @@ import Toolbar from "./toolbar";
 import CursorsPresence from "./cursorsPresence";
 import LayerPreview from "./layerPreview";
 import SelectionBox from "./selectionBox";
+import SelectionTools from "./selectionTools";
 
 const MAX_LAYERS = 100;
 
@@ -144,7 +144,7 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
   );
 
   const onPointerUp = useMutation(
-    ({}, e: PointerEvent) => {
+    ({ self }, e: PointerEvent) => {
       const point = pointerEventToCanvasPoint(e, camera);
 
       if (canvasState.mode === CanvasMode.Inserting)
@@ -198,6 +198,7 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
     <main className="relative h-full w-full touch-none bg-neutral-100">
       <Info boardId={boardId} />
       <Participants />
+
       <Toolbar
         canvasState={canvasState}
         setCanvasState={setCanvasState}
@@ -206,6 +207,7 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
         redo={history.redo}
         canRedo={canRedo}
       />
+      <SelectionTools camera={camera} setLastUsedColor={setLastUsedColor} />
 
       <svg
         className="h-[100vh] w-[100vw]"
