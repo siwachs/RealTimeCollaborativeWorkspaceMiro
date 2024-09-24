@@ -45,6 +45,10 @@ const SelectionTools: React.FC<{
     >
       <ColorPicker onChange={setFill} />
 
+      <div className="flex flex-col gap-y-0.5">
+        <Hint></Hint>
+      </div>
+
       <div className="ml-2 flex items-center border-l border-neutral-200 pl-2">
         <Hint label="Delete">
           <Button variant="board" size="icon" onClick={deleteLayer}>
