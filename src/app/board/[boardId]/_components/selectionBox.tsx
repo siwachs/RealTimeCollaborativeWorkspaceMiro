@@ -7,9 +7,7 @@ import { LayerType, Side, XYWH } from "@/types/canvas";
 const HANDLE_WIDTH = 8;
 
 const SelectionBox: React.FC<{
-  onResizeHandlePointerDown: () => void;
-  corner: Side;
-  initialBound: XYWH;
+  onResizeHandlePointerDown: (corner: Side, initialBounds: XYWH) => void;
 }> = memo(({ onResizeHandlePointerDown }) => {
   const soleLayerId = useSelf((me) => me.presence.selection?.[0] ?? null);
 
@@ -48,7 +46,7 @@ const SelectionBox: React.FC<{
             }}
             onPointerDown={(e: PointerEvent) => {
               e.stopPropagation();
-              // TODO: Add Resize
+              onResizeHandlePointerDown(Side.Top + Side.Left, bounds);
             }}
           />
 
@@ -66,7 +64,7 @@ const SelectionBox: React.FC<{
             }}
             onPointerDown={(e: PointerEvent) => {
               e.stopPropagation();
-              // TODO: Add Resize
+              onResizeHandlePointerDown(Side.Top, bounds);
             }}
           />
 
@@ -84,7 +82,7 @@ const SelectionBox: React.FC<{
             }}
             onPointerDown={(e: PointerEvent) => {
               e.stopPropagation();
-              // TODO: Add Resize
+              onResizeHandlePointerDown(Side.Top + Side.Right, bounds);
             }}
           />
 
@@ -98,11 +96,11 @@ const SelectionBox: React.FC<{
               height: `${HANDLE_WIDTH}px`,
               transform: `translate3d(
               ${bounds.x - HANDLE_WIDTH / 2 + bounds.width}px, 
-              ${bounds.y + bounds.height / 2 - HANDLE_WIDTH}px, 0)`,
+              ${bounds.y + bounds.height / 2 - HANDLE_WIDTH / 2}px, 0)`,
             }}
             onPointerDown={(e: PointerEvent) => {
               e.stopPropagation();
-              // TODO: Add Resize
+              onResizeHandlePointerDown(Side.Right, bounds);
             }}
           />
 
@@ -120,7 +118,7 @@ const SelectionBox: React.FC<{
             }}
             onPointerDown={(e: PointerEvent) => {
               e.stopPropagation();
-              // TODO: Add Resize
+              onResizeHandlePointerDown(Side.Bottom + Side.Right, bounds);
             }}
           />
 
@@ -138,7 +136,7 @@ const SelectionBox: React.FC<{
             }}
             onPointerDown={(e: PointerEvent) => {
               e.stopPropagation();
-              // TODO: Add Resize
+              onResizeHandlePointerDown(Side.Bottom, bounds);
             }}
           />
 
@@ -156,7 +154,7 @@ const SelectionBox: React.FC<{
             }}
             onPointerDown={(e: PointerEvent) => {
               e.stopPropagation();
-              // TODO: Add Resize
+              onResizeHandlePointerDown(Side.Bottom + Side.Left, bounds);
             }}
           />
 
@@ -174,7 +172,7 @@ const SelectionBox: React.FC<{
             }}
             onPointerDown={(e: PointerEvent) => {
               e.stopPropagation();
-              // TODO: Add Resize
+              onResizeHandlePointerDown(Side.Left, bounds);
             }}
           />
         </>

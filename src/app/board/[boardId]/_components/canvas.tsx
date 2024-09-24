@@ -25,8 +25,15 @@ import {
   LayerType,
   Color,
   Point,
+  Side,
+  XYWH,
+  CanvasLayer,
 } from "@/types/canvas";
-import { connectionIdToColor, pointerEventToCanvasPoint } from "@/lib/utils";
+import {
+  connectionIdToColor,
+  pointerEventToCanvasPoint,
+  resizeBounds,
+} from "@/lib/utils";
 import Info from "./info";
 import Participants from "./participants";
 import Toolbar from "./toolbar";
@@ -54,16 +61,49 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
     b: 0,
   });
 
-  const onPointerMove = useMutation(({ setMyPresence }, e: PointerEvent) => {
-    e.preventDefault();
-    const current = pointerEventToCanvasPoint(e, camera);
+  const resizeSelectedLayer = useMutation(
+    ({ storage, self }, point: Point) => {
+      if (canvasState.mode !== CanvasMode.Resizing) return;
 
-    setMyPresence({ cursor: current });
-  }, []);
+      const bounds = resizeBounds(
+        canvasState.initialBounds,
+        canvasState.corner,
+        point,
+      );
+
+      const liveLayers = storage.get("layers");
+      const layer = liveLayers.get(self.presence.selection?.[0]);
+
+      if (layer) layer.update(bounds);
+    },
+    [canvasState.mode],
+  );
+
+  const onPointerMove = useMutation(
+    ({ setMyPresence }, e: PointerEvent) => {
+      e.preventDefault();
+      const current = pointerEventToCanvasPoint(e, camera);
+
+      if (canvasState.mode === CanvasMode.Resizing)
+        resizeSelectedLayer(current);
+
+      setMyPresence({ cursor: current });
+    },
+    [canvasState.mode, resizeSelectedLayer, camera.x, camera.y],
+  );
 
   const onPointerLeave = useMutation(({ setMyPresence }) => {
     setMyPresence({ cursor: null });
   }, []);
+
+  const onResizeHandlePointerDown = useCallback(
+    (corner: Side, initialBounds: XYWH) => {
+      history.pause();
+
+      setCanvasState({ mode: CanvasMode.Resizing, initialBounds, corner });
+    },
+    [history],
+  );
 
   const onWheel = useCallback((e: WheelEvent) => {
     setCamera((camera) => ({ x: camera.x - e.deltaX, y: camera.y - e.deltaY }));
@@ -186,7 +226,7 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
             />
           ))}
 
-          <SelectionBox onResizeHandlePointerDown={() => {}} />
+          <SelectionBox onResizeHandlePointerDown={onResizeHandlePointerDown} />
 
           <CursorsPresence />
         </g>

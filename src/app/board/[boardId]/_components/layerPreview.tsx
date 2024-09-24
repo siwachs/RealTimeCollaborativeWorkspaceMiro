@@ -26,7 +26,7 @@ const LayerPreview: React.FC<{
       return <></>;
 
     default:
-      console.warn("Unknown layer type");
+      // console.warn("Unknown layer type");
       return null;
   }
 });
