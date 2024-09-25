@@ -23,7 +23,12 @@ const Room: React.FC<{
           layers: new LiveMap<string, LiveObject<CanvasLayer>>(),
           layerIds: new LiveList([]),
         }}
-        initialPresence={{ cursor: null, selection: [] }}
+        initialPresence={{
+          cursor: null,
+          selection: [],
+          pencilDraft: null,
+          penColor: null,
+        }}
       >
         <ClientSideSuspense fallback={fallback}>{children}</ClientSideSuspense>
       </RoomProvider>

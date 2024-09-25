@@ -45,7 +45,6 @@ const Note: React.FC<{
       onPointerDown={(e) => onPointerDown(e, id)}
       style={{
         outline: selectionColor ? `1px solid ${selectionColor}` : "none",
-        backgroundColor: fill ? colorToCSS(fill) : "#000",
       }}
       className="shadow-md drop-shadow-xl"
     >
@@ -59,6 +58,7 @@ const Note: React.FC<{
         style={{
           color: fill ? getContrastingTextColor(fill) : "#000",
           fontSize: calculateFontSize(width, height),
+          backgroundColor: fill ? colorToCSS(fill) : "#000",
         }}
       />
     </foreignObject>

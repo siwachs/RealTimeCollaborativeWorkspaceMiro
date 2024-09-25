@@ -91,6 +91,56 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
     [layerIds],
   );
 
+  const startDrawing = useMutation(
+    ({ setMyPresence }, point: Point, pressure: number) => {
+      setMyPresence({
+        pencilDraft: [[point.x, point.y, pressure]],
+        penColor: lastUsedColor,
+      });
+    },
+    [lastUsedColor],
+  );
+
+  const continueDrawing = useMutation(
+    ({ self, setMyPresence }, point: Point, e: PointerEvent) => {
+      const { pencilDraft } = self.presence;
+
+      if (
+        canvasState.mode !== CanvasMode.Pencil ||
+        e.buttons !== 1 ||
+        !pencilDraft
+      )
+        return;
+
+      setMyPresence({
+        cursor: point,
+        pencilDraft:
+          pencilDraft.length === 1 &&
+          pencilDraft[0][0] === point.x &&
+          pencilDraft[0][1] === point.y
+            ? pencilDraft
+            : [...pencilDraft, [point.x, point.y, e.pressure]],
+      });
+    },
+    [canvasState.mode],
+  );
+
+  const insertPath = useMutation(({ storage, self, setMyPresence }) => {
+    const liveLayers = storage.get("layers");
+    const { pencilDraft } = self.presence;
+
+    if (
+      !pencilDraft ||
+      pencilDraft.length < 2 ||
+      liveLayers.size >= MAX_LAYERS
+    ) {
+      setMyPresence({ pencilDraft: null });
+      return;
+    }
+
+    const id = nanoid();
+  }, []);
+
   const resizeSelectedLayer = useMutation(
     ({ storage, self }, point: Point) => {
       if (canvasState.mode !== CanvasMode.Resizing) return;
@@ -148,15 +198,21 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
         translateSelectedLayer(current);
       else if (canvasState.mode === CanvasMode.Resizing)
         resizeSelectedLayer(current);
+      else if (canvasState.mode === CanvasMode.Pencil)
+        continueDrawing(current, e);
 
       setMyPresence({ cursor: current });
     },
     [
+      continueDrawing,
       canvasState.mode,
       resizeSelectedLayer,
       camera.x,
       camera.y,
       translateSelectedLayer,
+      startSelectionNet,
+      updateSelectionNet,
+      resizeSelectedLayer,
     ],
   );
 
@@ -216,10 +272,9 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
       const point = pointerEventToCanvasPoint(e, camera);
 
       if (canvasState.mode === CanvasMode.Inserting) return;
-
-      // TODO: Add Case For Draw
-
-      setCanvasState({ origin: point, mode: CanvasMode.Pressing });
+      else if (canvasState.mode === CanvasMode.Pencil)
+        startDrawing(point, e.pressure);
+      else setCanvasState({ origin: point, mode: CanvasMode.Pressing });
     },
     [camera.x, camera.y, canvasState.mode, setCanvasState],
   );
@@ -234,19 +289,22 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
       ) {
         unselectSelectLayers();
         setCanvasState({ mode: CanvasMode.NONE });
-      } else if (canvasState.mode === CanvasMode.Inserting)
+      } else if (canvasState.mode === CanvasMode.Pencil) insertPath();
+      else if (canvasState.mode === CanvasMode.Inserting)
         insertLayer(canvasState.layerType, point);
       else setCanvasState({ mode: CanvasMode.NONE });
 
       history.resume();
     },
     [
+      setCanvasState,
       camera.x,
       camera.y,
       canvasState.mode,
       history,
       insertLayer,
       unselectSelectLayers,
+      insertPath,
     ],
   );
 
