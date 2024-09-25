@@ -1,8 +1,17 @@
 import { PointerEvent, memo } from "react";
 import { useStorage } from "@liveblocks/react/suspense";
 
-import { LayerType, RectangleLayer } from "@/types/canvas";
+import {
+  LayerType,
+  RectangleLayer,
+  EllipseLayer,
+  TextLayer,
+  NoteLayer,
+} from "@/types/canvas";
 import Rectangle from "./layers/rectangle";
+import Ellipse from "./layers/ellipse";
+import Text from "./layers/text";
+import Note from "./layers/note";
 
 const LayerPreview: React.FC<{
   id: string;
@@ -23,10 +32,35 @@ const LayerPreview: React.FC<{
         />
       );
     case LayerType.Ellipse:
-      return <></>;
+      return (
+        <Ellipse
+          id={id}
+          layer={layer as EllipseLayer}
+          onPointerDown={onLayerPointerDown}
+          selectionColor={selectionColor}
+        />
+      );
+    case LayerType.Text:
+      return (
+        <Text
+          id={id}
+          layer={layer as TextLayer}
+          onPointerDown={onLayerPointerDown}
+          selectionColor={selectionColor}
+        />
+      );
+    case LayerType.Note:
+      return (
+        <Note
+          id={id}
+          layer={layer as NoteLayer}
+          onPointerDown={onLayerPointerDown}
+          selectionColor={selectionColor}
+        />
+      );
 
     default:
-      // console.warn("Unknown layer type");
+      console.warn("Unknown layer type");
       return null;
   }
 });
