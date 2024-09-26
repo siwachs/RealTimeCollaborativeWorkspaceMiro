@@ -2691,6 +2691,11 @@ path-scurry@^1.10.1, path-scurry@^1.11.1:
     lru-cache "^10.2.0"
     minipass "^5.0.0 || ^6.0.2 || ^7.0.0"
 
+perfect-freehand@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/perfect-freehand/-/perfect-freehand-1.2.2.tgz#292f65b72df0c7f57a89c4b346b50d7139014172"
+  integrity sha512-eh31l019WICQ03pkF3FSzHxB8n07ItqIQ++G5UV8JX0zVOXzgTGCqnRR0jJ2h9U8/2uW4W4mtGJELt9kEV0CFQ==
+
 picocolors@^1.0.0, picocolors@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.0.tgz#5358b76a78cde483ba5cef6a9dc9671440b27d59"

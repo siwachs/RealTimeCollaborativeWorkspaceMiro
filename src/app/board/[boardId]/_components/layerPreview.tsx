@@ -7,11 +7,13 @@ import {
   EllipseLayer,
   TextLayer,
   NoteLayer,
+  PathLayer,
 } from "@/types/canvas";
 import Rectangle from "./layers/rectangle";
 import Ellipse from "./layers/ellipse";
 import Text from "./layers/text";
 import Note from "./layers/note";
+import Path from "./layers/path";
 
 const LayerPreview: React.FC<{
   id: string;
@@ -56,6 +58,15 @@ const LayerPreview: React.FC<{
           layer={layer as NoteLayer}
           onPointerDown={onLayerPointerDown}
           selectionColor={selectionColor}
+        />
+      );
+    case LayerType.Path:
+      return (
+        <Path
+          id={id}
+          layer={layer as PathLayer}
+          onPointerDown={onLayerPointerDown}
+          stroke={selectionColor}
         />
       );
 
