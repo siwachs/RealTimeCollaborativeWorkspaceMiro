@@ -10,6 +10,8 @@ import {
   Point,
   Side,
   XYWH,
+  PathLayer,
+  LayerType,
 } from "@/types/canvas";
 
 const COLORS = ["#DC2626", "#D97706", "#059669", "#7C3AED", "#DB2777"];
@@ -106,4 +108,39 @@ export function getContrastingTextColor(color: Color) {
   const luminance = 0.299 * color.r + 0.587 * color.g + 0.114 * color.b;
 
   return luminance > 182 ? "black" : "white";
+}
+
+export function penPointsToPathLayer(
+  points: number[][],
+  color: Color,
+): PathLayer {
+  if (points.length < 2)
+    throw new Error("Can not transform points with less then 2 points");
+
+  let left = Number.POSITIVE_INFINITY,
+    top = Number.POSITIVE_INFINITY,
+    right = Number.NEGATIVE_INFINITY,
+    bottom = Number.NEGATIVE_INFINITY;
+
+  for (const point of points) {
+    const [x, y] = point;
+
+    if (left > x) left = x;
+
+    if (top > y) top = y;
+
+    if (right < x) right = x;
+
+    if (bottom < y) bottom = y;
+  }
+
+  return {
+    type: LayerType.Path,
+    x: left,
+    y: right,
+    width: right - left,
+    height: bottom - top,
+    fill: color,
+    points: points.map(([x, y, pressure]) => [x - left, y - top, pressure]),
+  };
 }

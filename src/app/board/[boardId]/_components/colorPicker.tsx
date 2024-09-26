@@ -11,9 +11,13 @@ const ColorPicker: React.FC<{ onChange: (color: Color) => void }> = ({
       <ColorButton onClick={onChange} color={{ r: 255, g: 255, b: 255 }} />
       <ColorButton onClick={onChange} color={{ r: 0, g: 0, b: 255 }} />
       <ColorButton onClick={onChange} color={{ r: 0, g: 255, b: 0 }} />
-      <ColorButton onClick={onChange} color={{ r: 255, g: 255, b: 0 }} />
+      <ColorButton onClick={onChange} color={{ r: 255, g: 255, b: 190 }} />
       <ColorButton onClick={onChange} color={{ r: 255, g: 165, b: 0 }} />
       <ColorButton onClick={onChange} color={{ r: 128, g: 0, b: 128 }} />
+      <ColorButton onClick={onChange} color={{ r: 224, g: 255, b: 255 }} />
+      <ColorButton onClick={onChange} color={{ r: 240, g: 128, b: 128 }} />
+      <ColorButton onClick={onChange} color={{ r: 230, g: 230, b: 250 }} />
+      <ColorButton onClick={onChange} color={{ r: 255, g: 215, b: 0 }} />
     </div>
   );
 };
