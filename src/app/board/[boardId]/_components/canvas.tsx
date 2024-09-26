@@ -6,7 +6,10 @@ import {
   WheelEvent,
   useCallback,
   useMemo,
+  useEffect,
 } from "react";
+import useDisableScrollBounce from "@/hooks/useDisableScrollBounce";
+import useDeleteLayers from "@/hooks/useDeleteLayers";
 import { LiveObject } from "@liveblocks/client";
 import {
   useStorage,
@@ -57,6 +60,7 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
     mode: CanvasMode.NONE,
   });
 
+  useDisableScrollBounce();
   const history = useHistory();
   const canUndo = useCanUndo();
   const canRedo = useCanRedo();
@@ -363,6 +367,31 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
 
     return layerIdsToColorSelection;
   }, [selections]);
+
+  const deleteLayers = useDeleteLayers();
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.ctrlKey || e.metaKey) {
+        switch (e.key) {
+          case "z":
+            history.undo();
+            break;
+          case "y":
+            history.redo();
+        }
+      } else {
+        switch (e.key) {
+          case "Delete":
+            deleteLayers();
+            break;
+        }
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [deleteLayers, history]);
 
   return (
     <main className="relative h-full w-full touch-none bg-neutral-100">
