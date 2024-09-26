@@ -7,7 +7,7 @@ import { PathLayer } from "@/types/canvas";
 const Path: React.FC<{
   id: string;
   layer: PathLayer;
-  onPointerDown: (e: PointerEvent, id: string) => void;
+  onPointerDown?: (e: PointerEvent, id: string) => void;
   stroke?: string;
 }> = ({ id, layer, onPointerDown, stroke }) => {
   const { x, y, points, fill } = layer;
@@ -15,7 +15,7 @@ const Path: React.FC<{
   return (
     <path
       className="drop-shadow-md"
-      onPointerDown={(e) => onPointerDown(e, id)}
+      onPointerDown={(e) => onPointerDown && onPointerDown(e, id)}
       d={getSvgPathFromStroke(
         getStroke(points, {
           size: 16,

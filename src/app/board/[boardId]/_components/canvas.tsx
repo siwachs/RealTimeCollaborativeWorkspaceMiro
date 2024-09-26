@@ -15,6 +15,7 @@ import {
   useCanRedo,
   useMutation,
   useOthersMapped,
+  useSelf,
 } from "@liveblocks/react/suspense";
 import { nanoid } from "nanoid";
 
@@ -28,6 +29,7 @@ import {
   Side,
   XYWH,
   Layer,
+  PathLayer,
 } from "@/types/canvas";
 import {
   connectionIdToColor,
@@ -43,11 +45,13 @@ import CursorsPresence from "./cursorsPresence";
 import LayerPreview from "./layerPreview";
 import SelectionBox from "./selectionBox";
 import SelectionTools from "./selectionTools";
+import Path from "./layers/path";
 
 const MAX_LAYERS = 100;
 
 const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
   const layerIds = useStorage((root) => root.layerIds);
+  const { pencilDraft } = useSelf((self) => self.presence);
 
   const [canvasState, setCanvasState] = useState<CanvasState>({
     mode: CanvasMode.NONE,
@@ -409,6 +413,17 @@ const Canvas: React.FC<{ boardId: string }> = ({ boardId }) => {
             )}
 
           <CursorsPresence />
+          {pencilDraft && pencilDraft.length > 0 && (
+            <Path
+              id="pathId"
+              layer={
+                {
+                  points: pencilDraft,
+                  fill: lastUsedColor,
+                } as PathLayer
+              }
+            />
+          )}
         </g>
       </svg>
     </main>

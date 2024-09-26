@@ -35,7 +35,7 @@ export interface EllipseLayer extends Layer {
 
 export interface PathLayer extends Layer {
   type: LayerType.Path;
-  points: number[][];
+  points: [x: number, y: number, pressure: number][];
 }
 
 export interface TextLayer extends Layer {
