@@ -1,7 +1,7 @@
 const config = {
   providers: [
     {
-      domain: process.env.CLERK_DOMAIN,
+      domain: "https://genuine-hermit-46.clerk.accounts.dev",
       applicationID: "convex",
     },
   ],
