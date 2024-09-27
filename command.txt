@@ -11,3 +11,5 @@ Run convex backend: npx convex dev
 Format All Docs: npx prettier --write .
 
 npx create-liveblocks-app@latest --init --framework react
+
+npx convex deploy --cmd 'npm run build'

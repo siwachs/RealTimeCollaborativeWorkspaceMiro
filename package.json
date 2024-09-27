@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^5.6.0",
-    "@liveblocks/client": "^2.7.2",
-    "@liveblocks/node": "^2.7.2",
-    "@liveblocks/react": "^2.7.2",
+    "@clerk/nextjs": "^5.6.2",
+    "@liveblocks/client": "^2.8.0",
+    "@liveblocks/node": "^2.8.0",
+    "@liveblocks/react": "^2.8.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -24,7 +24,7 @@
     "convex": "^1.16.2",
     "convex-helpers": "^0.1.58",
     "date-fns": "^4.1.0",
-    "lucide-react": "^0.445.0",
+    "lucide-react": "^0.446.0",
     "nanoid": "^5.0.7",
     "next": "14.2.13",
     "next-themes": "^0.3.0",
@@ -40,15 +40,15 @@
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
-    "@types/node": "^22.5.4",
-    "@types/react": "^18.3.8",
+    "@types/node": "^22.7.3",
+    "@types/react": "^18.3.9",
     "@types/react-dom": "^18",
-    "eslint": "^9.11.0",
+    "eslint": "^9.11.1",
     "eslint-config-next": "14.2.13",
     "postcss": "^8",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.6",
-    "tailwindcss": "^3.4.12",
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"
   }
 }
