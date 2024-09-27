@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RealTime Collaborative Workspace (Miro)
 
-## Getting Started
+A real-time collaborative workspace for teams to create organizations, private meeting rooms, and collaborate on a live whiteboard for brainstorming ideas. Built with modern technologies for seamless, real-time collaboration.
 
-First, run the development server:
+### 🚀 Live Demo:
+[RealTime Collaborative Workspace (Miro)](https://real-time-collaborative-workspace-miro.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **User Authentication:** Secure user authentication and organization management with **Clerk**.
+- **Real-Time Collaboration:** Enabled through **Liveblocks** for real-time interactions on the whiteboard.
+- **Private Meeting Rooms:** Create private rooms for focused discussions within organizations.
+- **Real-Time Updates:** Real-time data management using **Convex** for seamless updates across users.
+- **Whiteboard for Collaboration:** Interactive canvas for teams to brainstorm and visualize ideas.
+- **ShadCN UI Components:** Beautiful and responsive user interface powered by **ShadCN UI**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 💻 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend:** Next.js, React.js, Tailwind CSS, ShadCN UI
+- **Authentication:** Clerk
+- **Real-Time Database:** Convex
+- **Real-Time Collaboration:** Liveblocks
+- **Storage:** Convex for database management
+- **Deployment:** Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
